@@ -15,20 +15,25 @@ jobs:
         node-version: [20]
 
     steps:
-      # 1. Checkout repo
       - name: Checkout repository
         uses: actions/checkout@v4
 
-      # 2. Setup Node.js
       - name: Use Node.js ${{ matrix.node-version }}
         uses: actions/setup-node@v4
         with:
           node-version: ${{ matrix.node-version }}
 
       # ---- CLIENT (TypeScript React) ----
-      - name: Install client dependencies
+      - name: Install client dependencies (ci if lockfile else install)
         working-directory: ./client
-        run: npm ci
+        run: |
+          if [ -f package-lock.json ] || [ -f npm-shrinkwrap.json ]; then
+            echo "Found lockfile — running npm ci"
+            npm ci
+          else
+            echo "No lockfile found — running npm install"
+            npm install
+          fi
 
       - name: Lint client
         working-directory: ./client
@@ -39,9 +44,16 @@ jobs:
         run: npm run build --if-present
 
       # ---- SERVER (JavaScript Express) ----
-      - name: Install server dependencies
+      - name: Install server dependencies (ci if lockfile else install)
         working-directory: ./server
-        run: npm ci
+        run: |
+          if [ -f package-lock.json ] || [ -f npm-shrinkwrap.json ]; then
+            echo "Found lockfile — running npm ci"
+            npm ci
+          else
+            echo "No lockfile found — running npm install"
+            npm install
+          fi
 
       - name: Lint server
         working-directory: ./server
@@ -51,6 +63,5 @@ jobs:
         working-directory: ./server
         run: npm test --if-present
 
-      # ---- END ----
       - name: Done
-        run: echo "✅ CI pipeline passed successfully!"
+        run: echo "✅ CI pipeline finished"

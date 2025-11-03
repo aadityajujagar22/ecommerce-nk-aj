@@ -1,0 +1,67 @@
+name: CI - Build, Lint, and Test (MERN)
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+jobs:
+  build-and-test:
+    runs-on: ubuntu-latest
+
+    strategy:
+      matrix:
+        node-version: [20]
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Use Node.js ${{ matrix.node-version }}
+        uses: actions/setup-node@v4
+        with:
+          node-version: ${{ matrix.node-version }}
+
+      # ---- CLIENT (TypeScript React) ----
+      - name: Install client dependencies (ci if lockfile else install)
+        working-directory: ./client
+        run: |
+          if [ -f package-lock.json ] || [ -f npm-shrinkwrap.json ]; then
+            echo "Found lockfile — running npm ci"
+            npm ci
+          else
+            echo "No lockfile found — running npm install"
+            npm install
+          fi
+
+      - name: Lint client
+        working-directory: ./client
+        run: npm run lint --if-present
+
+      - name: Build client (TypeScript)
+        working-directory: ./client
+        run: npm run build --if-present
+
+      # ---- SERVER (JavaScript Express) ----
+      - name: Install server dependencies (ci if lockfile else install)
+        working-directory: ./server
+        run: |
+          if [ -f package-lock.json ] || [ -f npm-shrinkwrap.json ]; then
+            echo "Found lockfile — running npm ci"
+            npm ci
+          else
+            echo "No lockfile found — running npm install"
+            npm install
+          fi
+
+      - name: Lint server
+        working-directory: ./server
+        run: npm run lint --if-present
+
+      - name: Test server
+        working-directory: ./server
+        run: npm test --if-present
+
+      - name: Done
+        run: echo "✅ CI pipeline finished"

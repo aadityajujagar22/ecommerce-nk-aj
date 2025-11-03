@@ -1,0 +1,128 @@
+# =========================================
+# GLOBAL GITIGNORE FOR MERN (React + Node)
+# =========================================
+
+# --- Node ---
+node_modules/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+package-lock.json
+pnpm-lock.yaml
+yarn.lock
+
+# --- Build outputs ---
+dist/
+build/
+.next/
+out/
+.cache/
+.terraform/
+.tmp/
+temp/
+tmp/
+
+# --- Environment variables ---
+.env
+.env.*
+!.env.example
+
+# --- Logs ---
+logs
+*.log
+*.log.*
+npm-debug.log*
+yarn-debug.log*
+pnpm-debug.log*
+lerna-debug.log*
+debug.log
+
+# --- TypeScript ---
+*.tsbuildinfo
+tsconfig.tsbuildinfo
+
+# --- OS / Editor junk ---
+.DS_Store
+Thumbs.db
+ehthumbs.db
+Icon?
+.idea/
+.vscode/
+*.swp
+*.swo
+*.bak
+*.tmp
+*.orig
+
+# --- Test / Coverage ---
+coverage/
+.nyc_output/
+*.lcov
+jest-html-reporters-*
+
+# --- Dependency caches ---
+.pnp.*
+.cache-loader/
+.eslintcache
+.stylelintcache
+parcel-cache/
+turbo/
+.next/
+.vercel/
+firebase-debug.log
+firebase-debug.*
+.svelte-kit/
+vite-dist/
+vite-cache/
+vite-out/
+
+# --- AWS / Cloud / Secrets ---
+.aws/
+*.pem
+*.key
+*.crt
+*.cer
+*.p12
+
+# --- Lock files from package managers ---
+# (Optional: comment out if you prefer to keep them)
+package-lock.json
+yarn.lock
+pnpm-lock.yaml
+
+# --- Local data / artifacts ---
+uploads/
+public/uploads/
+client/.env
+server/.env
+client/dist/
+server/dist/
+client/build/
+server/build/
+*.local
+
+# --- Misc ---
+*.tgz
+*.zip
+*.tar
+*.gz
+*.7z
+
+# --- Coverage and test results ---
+coverage/
+test-results/
+test-output/
+
+# --- Custom project folders ---
+client/node_modules/
+server/node_modules/
+client/build/
+server/build/
+client/dist/
+server/dist/
+
+# --- Docker ---
+docker-compose.override.yml
+.docker/
+*.pid

@@ -1,3 +1,5 @@
+// 2
+
 const express = require("express");
 const app = express();
 const { dbConnect } = require("./config/database");

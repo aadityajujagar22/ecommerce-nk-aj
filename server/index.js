@@ -11,5 +11,5 @@ dbConnect();
 app.use(express.json());
 
 app.listen(PORT, () => {
-  console.log(`App is live on PORT: ${PORT}`);
+  console.log(`App is live on port: ${PORT}`);
 });

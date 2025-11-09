@@ -6,6 +6,7 @@ const bcrypt = require("bcrypt");
 const JWT = require("jsonwebtoken");
 require("dotenv").config();
 
+// 4
 exports.signup = async (req, res) => {
   try {
     const {
